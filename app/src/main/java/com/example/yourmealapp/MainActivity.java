@@ -13,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.yourmealapp.models.User;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText fullname, email, phone, username, password, repassword;
@@ -55,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
             String name = fullname.getText().toString().trim();
             String mail = email.getText().toString().trim();
             String phoneNum = phone.getText().toString().trim();
-            String user = username.getText().toString().trim();
+            String user_name = username.getText().toString().trim();
             String pass = password.getText().toString();
             String repass = repassword.getText().toString();
 
             // Kiểm tra dữ liệu nhập vào
-            if (name.isEmpty() || mail.isEmpty() || phoneNum.isEmpty() || user.isEmpty() || pass.isEmpty() || repass.isEmpty()) {
+            if (name.isEmpty() || mail.isEmpty() || phoneNum.isEmpty() || user_name.isEmpty() || pass.isEmpty() || repass.isEmpty()) {
                 Toast.makeText(MainActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -71,13 +73,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Kiểm tra tài khoản đã tồn tại chưa
-            if (DB.checkUsername(user)) {
+            if (DB.checkUsername(user_name)) {
                 Toast.makeText(MainActivity.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Thêm tài khoản mới
-            boolean isRegistered = DB.registerUser(user, pass, name, mail, phoneNum);
+            User user = new User(user_name, pass, name, mail, phoneNum, "user");
+            boolean isRegistered = DB.registerUser(user);
             if (isRegistered) {
                 Toast.makeText(MainActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);

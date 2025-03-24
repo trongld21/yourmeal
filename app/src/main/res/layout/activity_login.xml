@@ -5,45 +5,86 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:background="@color/retro_background"
     tools:context=".LoginActivity">
 
+    <!-- Tên tài khoản -->
     <TextView
         android:id="@+id/txtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tên tài khoản:"
-        android:layout_marginTop="50dp"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginBottom="8dp"
         />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtUsername"
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/txtUsername"
         />
 
+    <!-- Mật khẩu -->
     <TextView
         android:id="@+id/txtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mật khẩu:"
-        android:layout_below="@+id/username"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/username"
         />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassword"/>
+        android:inputType="textPassword"
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/txtPassword"
+        />
 
+    <!-- Nút Đăng Nhập -->
     <Button
         android:id="@+id/btnSignin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đăng nhập"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/password"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="14dp"
+        android:background="@drawable/retro_button"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/password"
+        />
+
+    <!-- Nút Đăng Ký -->
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng ký tài khoản mới"
+        android:textSize="14sp"
+        android:padding="12dp"
+        android:background="@drawable/retro_button_secondary"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/btnSignin"
         />
 
 </RelativeLayout>

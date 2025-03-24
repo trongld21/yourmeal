@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="retro_background">#FAE3C6</color>
+    <color name="retro_text">#4D3B3B</color>
+    <color name="retro_button">#E07A5F</color>
+    <color name="retro_button_secondary">#F2CC8F</color>
+    <color name="retro_input">#F4F1DE</color>
+    <color name="retro_button_pressed">#F2CC8A</color>
+    <color name="retro_button_background">#FFDDC1</color>
+    <color name="retro_button_border">#FF9800</color>
 </resources>

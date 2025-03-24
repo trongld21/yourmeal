@@ -5,71 +5,141 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:background="@color/retro_background"
     tools:context=".MainActivity">
 
     <!-- Họ và Tên -->
+    <TextView
+        android:id="@+id/labelFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Họ và Tên"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="12dp"/>
+
     <EditText
         android:id="@+id/fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Họ và Tên"
-        android:padding="12dp"
-        android:layout_marginTop="10dp" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelFullName"/>
 
     <!-- Email -->
+    <TextView
+        android:id="@+id/labelEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/fullname"/>
+
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/fullname" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelEmail"/>
 
     <!-- Số điện thoại -->
+    <TextView
+        android:id="@+id/labelPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số điện thoại"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/email"/>
+
     <EditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Số điện thoại"
         android:inputType="phone"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/email" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelPhone"/>
 
     <!-- Tên đăng nhập -->
+    <TextView
+        android:id="@+id/labelUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên đăng nhập"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/phone"/>
+
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên đăng nhập"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/phone" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelUsername"/>
 
     <!-- Mật khẩu -->
+    <TextView
+        android:id="@+id/labelPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mật khẩu"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/username"/>
+
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mật khẩu"
         android:inputType="textPassword"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/username" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelPassword"/>
 
     <!-- Nhập lại mật khẩu -->
+    <TextView
+        android:id="@+id/labelRePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhập lại mật khẩu"
+        android:textSize="16sp"
+        android:textColor="@color/retro_text"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/password"/>
+
     <EditText
         android:id="@+id/repassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập lại mật khẩu"
         android:inputType="textPassword"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/password" />
+        android:padding="14dp"
+        android:textSize="16sp"
+        android:background="@drawable/retro_input"
+        android:textColor="@color/retro_text"
+        android:layout_below="@id/labelRePassword"/>
 
     <!-- Nút Đăng Ký -->
     <Button
@@ -77,23 +147,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đăng ký"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="14dp"
+        android:background="@drawable/retro_button"
+        android:textColor="@color/white"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/repassword" />
+        android:layout_below="@id/repassword"/>
 
     <!-- Nút Đăng Nhập -->
     <Button
         android:id="@+id/btnSignin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đã có tài khoản? Đăng nhập ngay."
-        android:textSize="14sp"
-        android:padding="10dp"
-        android:textColor="@android:color/black"
+        android:layout_below="@id/btnSignup"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/btnSignup" />
+        android:background="@drawable/retro_button_secondary"
+        android:padding="12dp"
+        android:text="Đã có tài khoản? Đăng nhập ngay."
+        android:textColor="@color/retro_text"
+        android:textSize="14sp"/>
 
 </RelativeLayout>

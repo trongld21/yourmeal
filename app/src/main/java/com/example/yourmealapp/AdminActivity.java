@@ -10,46 +10,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AdminActivity extends AppCompatActivity {
-    Button btnManageMeals, btnManageRestaurants, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        btnManageMeals = findViewById(R.id.btnManageMeals);
-        btnManageRestaurants = findViewById(R.id.btnManageRestaurants);
-        btnLogout = findViewById(R.id.btnLogout);
+        Button btnManageMeals = findViewById(R.id.btnManageMeals);
+        Button btnLogout = findViewById(R.id.btnLogout);
 
-        // Chuyển đến màn hình quản lý món ăn
-        btnManageMeals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminActivity.this, ManageMealsActivity.class);
-                startActivity(intent);
-            }
+        // Load mặc định là trang Quản lý Món Ăn
+        loadFragment(new ManageMealsFragment());
+
+        btnManageMeals.setOnClickListener(view -> loadFragment(new ManageMealsFragment()));
+        btnLogout.setOnClickListener(view -> {
+            // Xử lý đăng xuất (chuyển về LoginActivity)
+            finish();
         });
 
-        // Chuyển đến màn hình quản lý quán ăn
-        btnManageRestaurants.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminActivity.this, ManageRestaurantsActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
 
-        // Đăng xuất
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa lịch sử stack để tránh quay lại bằng nút back
-                startActivity(intent);
-                finish();
-            }
-        });
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.commit();
     }
 }

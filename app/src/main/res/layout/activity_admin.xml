@@ -15,39 +15,40 @@
         android:textStyle="bold"
         android:layout_centerHorizontal="true"/>
 
-    <!-- Nút Quản lý Món Ăn -->
-    <Button
-        android:id="@+id/btnManageMeals"
+    <!-- Menu điều hướng -->
+    <LinearLayout
+        android:id="@+id/menuContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quản lý Món Ăn"
-        android:textSize="18sp"
-        android:padding="12dp"
+        android:orientation="vertical"
         android:layout_below="@id/tvWelcomeAdmin"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp">
 
-    <!-- Nút Quản lý Quán Ăn -->
-    <Button
-        android:id="@+id/btnManageRestaurants"
+        <Button
+            android:id="@+id/btnManageMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quản lý Món Ăn"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng Xuất"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+
+    <!-- Khu vực hiển thị nội dung -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quản lý Quán Ăn"
-        android:textSize="18sp"
-        android:padding="12dp"
-        android:layout_below="@id/btnManageMeals"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menuContainer"
         android:layout_marginTop="20dp"/>
-
-    <!-- Nút Đăng Xuất -->
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đăng Xuất"
-        android:textSize="16sp"
-        android:padding="10dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/btnManageRestaurants"
-        android:layout_marginTop="40dp"/>
-
 </RelativeLayout>
