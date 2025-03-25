@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -10,97 +9,158 @@
     tools:context=".HomeActivity">
 
     <!-- Hiển thị gợi ý món ăn -->
+    <LinearLayout
+        android:id="@+id/Pgginate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnInfomation"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="105dp"
+            android:background="@drawable/user"
+            android:onClick="userInfo"
+            android:contentDescription="Thông tin"
+            android:padding="8dp"
+            android:scaleType="centerInside" />
+
+        <!-- Space ở giữa để đẩy hai nút ra xa -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnLogout"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="105dp"
+            android:background="@drawable/rounded_button_bg"
+            android:contentDescription="Đăng xuất"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_logout" />
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/mealTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gợi ý món ăn sẽ hiển thị ở đây"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/retro_text"
-        android:padding="14dp"
+        android:layout_below="@id/Pgginate"
+        android:layout_marginTop="120dp"
         android:background="@drawable/retro_textview_bg"
         android:gravity="center"
+        android:padding="14dp"
+        android:text="Gợi ý món ăn sẽ hiển thị ở đây"
+        android:textColor="@color/retro_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Pgginate" />
 
     <LinearLayout
         android:id="@+id/buttonContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/mealTextView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/historyTitleTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Pgginate">
 
         <ImageButton
             android:id="@+id/btnSuggestMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_suggest_meal"
-            android:contentDescription="Gợi ý món ăn"
+            android:layout_margin="8dp"
             android:background="@drawable/rounded_button_bg"
+            android:contentDescription="Gợi ý món ăn"
             android:padding="16dp"
             android:scaleType="centerInside"
-            android:layout_margin="8dp"/>
+            android:src="@drawable/ic_suggest_meal" />
 
         <ImageButton
             android:id="@+id/btnAcceptMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_accept_meal"
-            android:contentDescription="Chấp nhận món ăn"
+            android:layout_margin="8dp"
             android:background="@drawable/rounded_button_bg"
+            android:contentDescription="Chấp nhận món ăn"
             android:padding="16dp"
             android:scaleType="centerInside"
-            android:layout_margin="8dp"/>
+            android:src="@drawable/ic_accept_meal" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/historyTitleTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         android:text="Lịch sử các món đã chọn:"
         android:textColor="@color/retro_text"
         android:textSize="16sp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/buttonContainer"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/historyRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonContainer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="318dp"
         android:clipToPadding="false"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/historyTitleTextView" />
 
-    <ImageButton
-        android:id="@+id/btnLogout"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_logout"
-        android:contentDescription="Đăng xuất"
-        android:background="@drawable/rounded_button_bg"
-        android:padding="8dp"
-        android:scaleType="centerInside"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+    <TextView
+        android:id="@+id/favoriteTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Món yêu thích"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/historyRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
+        android:overScrollMode="never"
+        android:nestedScrollingEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

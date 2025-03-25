@@ -3,15 +3,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:gravity="center_horizontal">
 
+    <!-- Ảnh món ăn nếu có -->
     <ImageView
         android:id="@+id/mealImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_suggest_meal"
         android:scaleType="centerCrop"
-        android:background="@drawable/retro_textview_bg"/>
+        android:background="@drawable/retro_textview_bg" />
 
     <TextView
         android:id="@+id/mealName"
@@ -19,7 +21,16 @@
         android:layout_height="wrap_content"
         android:text="Tên món ăn"
         android:textSize="14sp"
-        android:gravity="center"
         android:textColor="@color/retro_text"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="4dp" />
+
+    <!-- Icon trái tim -->
+    <ImageView
+        android:id="@+id/imgFavorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/tym"
+        android:contentDescription="Yêu thích"
+        android:padding="4dp" />
 </LinearLayout>

@@ -40,6 +40,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE categories(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE)");
         db.execSQL("CREATE TABLE meals(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, category_id INTEGER NOT NULL, main_ingredient TEXT NOT NULL, FOREIGN KEY (category_id) REFERENCES categories(id))");
         db.execSQL("CREATE TABLE user_meal_history(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, meal_id INTEGER NOT NULL, date TEXT NOT NULL, FOREIGN KEY (username) REFERENCES users(username), FOREIGN KEY (meal_id) REFERENCES meals(id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS favorite_meals(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "username TEXT, " +
+                "meal_id INTEGER, " +
+                "FOREIGN KEY(username) REFERENCES users(username), " +
+                "FOREIGN KEY(meal_id) REFERENCES meals(id))");
 
         // Insert tài khoản admin
         db.execSQL("INSERT OR IGNORE INTO users (username, password, fullname, email, phone, role) " +
@@ -348,28 +354,28 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public List<UserMealHistory> getMealHistory(String username) {
-        List<UserMealHistory> historyList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM user_meal_history WHERE username = ? ORDER BY date DESC",
-                new String[]{username});
-
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                int mealId = cursor.getInt(cursor.getColumnIndex("meal_id"));
-                int restaurantId = cursor.getInt(cursor.getColumnIndex("restaurant_id"));
-                String date = cursor.getString(cursor.getColumnIndex("date"));
-
-                historyList.add(new UserMealHistory(id, username, mealId, restaurantId, date));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return historyList;
-    }
+//    public List<UserMealHistory> getMealHistory(String username) {
+//        List<UserMealHistory> historyList = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM user_meal_history WHERE username = ? ORDER BY date DESC",
+//                new String[]{username});
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(cursor.getColumnIndex("id"));
+//                int mealId = cursor.getInt(cursor.getColumnIndex("meal_id"));
+//                int restaurantId = cursor.getInt(cursor.getColumnIndex("restaurant_id"));
+//                String date = cursor.getString(cursor.getColumnIndex("date"));
+//
+//                historyList.add(new UserMealHistory(id, username, mealId, restaurantId, date));
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return historyList;
+//    }
 
     // Admin Functions:
 
@@ -405,7 +411,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        if (mealCount <= 10) {
+        if (mealCount <= 9) {
             return false;
         }
 
@@ -531,5 +537,86 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return restaurants;
     }
+
+    public HashMap<String, String> getUserInfo(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT username, fullname, email, phone, role FROM users WHERE username = ?",
+                new String[]{username}
+        );
+
+        HashMap<String, String> userInfo = null;
+        if (cursor.moveToFirst()) {
+            userInfo = new HashMap<>();
+            userInfo.put("username", cursor.getString(0));
+            userInfo.put("fullname", cursor.getString(1));
+            userInfo.put("email", cursor.getString(2));
+            userInfo.put("phone", cursor.getString(3));
+            userInfo.put("role", cursor.getString(4));
+        }
+
+        cursor.close();
+        return userInfo;
+    }
+
+    public boolean updateUserInfo(String username, String fullname, String email, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fullname", fullname);
+        values.put("email", email);
+        values.put("phone", phone);
+
+        int result = db.update("users", values, "username = ?", new String[]{username});
+        return result > 0;
+    }
+
+    public boolean addFavoriteMeal(String username, int mealId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("meal_id", mealId);
+
+        // Kiểm tra trùng
+        Cursor cursor = db.rawQuery("SELECT * FROM favorite_meals WHERE username = ? AND meal_id = ?", new String[]{username, String.valueOf(mealId)});
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return false; // đã tồn tại
+        }
+
+        cursor.close();
+        long result = db.insert("favorite_meals", null, values);
+        return result != -1;
+    }
+
+    public List<Meal> getFavoriteMeals(String username) {
+        List<Meal> favorites = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT m.id, m.name, m.category_id, m.main_ingredient " +
+                        "FROM favorite_meals f JOIN meals m ON f.meal_id = m.id WHERE f.username = ?",
+                new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            do {
+                favorites.add(new Meal(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getString(3)
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return favorites;
+    }
+
+    public boolean removeFavoriteMeal(String username, int mealId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedRows = db.delete("favorite_meals", "username = ? AND meal_id = ?", new String[]{username, String.valueOf(mealId)});
+        return deletedRows > 0;
+    }
+
 
 }

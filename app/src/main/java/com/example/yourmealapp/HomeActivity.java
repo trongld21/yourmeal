@@ -37,6 +37,9 @@ public class HomeActivity extends AppCompatActivity {
     private String currentUsername;
     private Meal currentMeal;
 
+    private RecyclerView favoriteRecyclerView;
+    private MealHistoryAdapter favoriteAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,9 @@ public class HomeActivity extends AppCompatActivity {
         btnAcceptMeal = findViewById(R.id.btnAcceptMeal);
         btnLogout = findViewById(R.id.btnLogout);
         historyRecyclerView = findViewById(R.id.historyRecyclerView);
+//        RecycleView hien thi danh sach yeu thich
+        favoriteRecyclerView = findViewById(R.id.favoriteRecyclerView);
+
 
         dbHelper = new DBHelper(this);
 
@@ -72,6 +78,8 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> {
             showLogoutDialog();
         });
+
+        loadFavoriteMeals();
     }
 
     private void showLogoutDialog() {
@@ -136,10 +144,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void loadMealHistory() {
         List<Meal> mealHistory = dbHelper.getUserMealHistory(currentUsername);
-        mealHistoryAdapter = new MealHistoryAdapter(mealHistory);
+        mealHistoryAdapter = new MealHistoryAdapter(mealHistory, this, currentUsername, false, () -> loadFavoriteMeals());
+
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         historyRecyclerView.setAdapter(mealHistoryAdapter);
         startAutoScroll(mealHistoryAdapter);
+
+
     }
 
     private void startAutoScroll(MealHistoryAdapter mealHistoryAdapter) {
@@ -172,4 +183,28 @@ public class HomeActivity extends AppCompatActivity {
             return false;
         });
     }
+
+    public void userInfo(View view) {
+//      Get user name from sharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null);
+        if (username != null) {
+            // Gửi username sang màn hình thông tin người dùng
+            Intent intent = new Intent(HomeActivity.this, UserProfile.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Không tìm thấy thông tin người dùng!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+//    Load favorite list
+    private void loadFavoriteMeals() {
+        List<Meal> favorites = dbHelper.getFavoriteMeals(currentUsername);
+        favoriteAdapter = new MealHistoryAdapter(favorites, this, currentUsername, true, null);
+
+        favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        favoriteRecyclerView.setAdapter(favoriteAdapter);
+    }
+
 }
