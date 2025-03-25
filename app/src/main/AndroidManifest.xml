@@ -13,6 +13,10 @@
         android:theme="@style/Theme.YourMealApp"
         tools:targetApi="31">
         <activity
+            android:name=".UserProfile"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".ManageRestaurantsActivity"
             android:exported="false" />
         <activity
